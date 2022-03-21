@@ -1,28 +1,36 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <GmapMap v-bind="{ ...mapProps }">
+        <GmapInfoWindow
+            :position="{ lat: 35, lng: -94 }"
+            :opened="true"
+            @mouseover="log('over')"
+            @mouseout="log('out')"
+            @onclick="log('click')"
+        >
+            Hover over me or click on me
+        </GmapInfoWindow>
+    </GmapMap>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
 
+
+<script>
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+    name: "App",
+    data() {
+        return {
+            mapProps: {
+                zoom: 4,
+                center: { lat: 35, lng: -94 },
+                style: "width: 100%; height:500px;",
+                mapTypeId: "roadmap",
+            },
+        }
+    },
+    methods: {
+      log(msg) {
+        console.log(msg)
+      }
+    },
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
